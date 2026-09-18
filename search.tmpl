@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+    <html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>搜索结果：{{ keyword }} - {{ blog_title }}</title>
+        <meta name="author" content="{{ user.Nickname }}">
+        <meta name="keywords" content="{{ meta_keywords }}">
+        <meta name="description" content="{{ meta_description }}">
+        <link rel="alternate" type="application/rss+xml" title="atom 1.0" href="{{ atom_url }}">
+        {% include "common/macro/head" %}
+        {% include "simple_corp_portal/module/styles" %}
+    </head>
+    <body>
+    {% include "simple_corp_portal/module/page-top" %}
+    <main class="container">
+        <section class="section">
+            {% include "simple_corp_portal/module/page-heading" with icon="🔍" title=printf("搜索：%s", keyword) subtitle=printf("%d 篇文章", posts.Total) %}
+            <div class="search-box">
+                <form action="{{ blog_url }}/search" method="get">
+                    <input name="keyword" type="text" value="{{ keyword }}" placeholder="输入关键词搜索...">
+                    <button type="submit">搜索</button>
+                </form>
+            </div>
+            <div class="post-list">
+                {% if posts.Content %}
+                    {% include "simple_corp_portal/module/post-entry" %}
+                {% else %}
+                    <div class="empty">没有找到与“{{ keyword }}”相关的文章</div>
+                {% endif %}
+            </div>
+            {% if posts.Pages > 1 %}
+                {% set pagination = searchPagination(posts.PageNum, posts.Pages, 3, keyword) %}
+                {% include "simple_corp_portal/module/pagination" with pagination=pagination current=posts.PageNum|add:1 total=posts.Pages %}
+            {% endif %}
+        </section>
+        {% include "simple_corp_portal/module/footer" %}
+    </main>
+    </body>
+    </html>

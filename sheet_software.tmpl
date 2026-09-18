@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+        <html lang="zh-CN">
+        <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width,initial-scale=1">
+            <title>{{ sheet.Title }} - {{ blog_title }}</title>
+            <meta name="author" content="{{ user.Nickname }}">
+            <meta name="keywords" content="{{ meta_keywords }}">
+            <meta name="description" content="{{ meta_description }}">
+            <link rel="alternate" type="application/rss+xml" title="atom 1.0" href="{{ atom_url }}">
+            {% include "common/macro/head" %}
+            {% include "simple_corp_portal/module/styles" %}
+        </head>
+        <body>
+        {% include "simple_corp_portal/module/page-top" %}
+        <main class="container">
+            <section class="section">
+                <div class="post-head">
+                    <h1>{{ sheet.Title }}</h1>
+                    <div class="post-meta">
+                        <span><i>🗓</i>{{ unix_milli_time_format("2006-01-02", sheet.CreateTime) }}</span>
+                        <span><i>💬</i><a href="{{ sheet.FullPath }}#comment_widget">评论</a></span>
+                    </div>
+                </div>
+                <div class="post-body">
+                    <div class="markdown-body">{{ sheet.Content|safe }}</div>
+                    <div id="comment_widget" style="margin-top:30px">
+                        {% include "common/macro/comment" %}
+                    </div>
+                </div>
+            </section>
+            {% include "simple_corp_portal/module/footer" %}
+        </main>
+        </body>
+        </html>

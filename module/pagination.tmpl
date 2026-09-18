@@ -1,0 +1,13 @@
+<div class="pagination">
+        <div>
+            {% if pagination.HasPrev %}<a class="btn" href="{{ pagination.PrevPageFullPath }}">上一页</a>{% endif %}
+        </div>
+        <div class="page-num">
+            {% for p in pagination.RainbowPages %}
+                {% if p.IsCurrent %}<span class="active">{{ p.Page }}</span>{% else %}<a href="{{ p.FullPath }}">{{ p.Page }}</a>{% endif %}
+            {% endfor %}
+        </div>
+        <div>
+            {% if pagination.HasNext %}<a class="btn" href="{{ pagination.NextPageFullPath }}">下一页</a>{% endif %}
+        </div>
+    </div>

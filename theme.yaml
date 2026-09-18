@@ -1,0 +1,11 @@
+id: simple_corp_portal
+name: Simple Corp Portal
+author:
+  name: Ryan Fan
+  website: https://www.hdget.com
+description: Simple Corp Portal
+logo: https://avatars1.githubusercontent.com/u/1811819?s=460&v=4
+website: https://www.hdget.com
+repo: https://github.com/hipoint-airpress/theme-simple-corp-portal
+version: 0.0.1
+require: 0.0.1

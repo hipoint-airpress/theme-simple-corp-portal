@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+    <html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>标签 - {{ blog_title }}</title>
+        <meta name="author" content="{{ user.Nickname }}">
+        <meta name="keywords" content="{{ meta_keywords }}">
+        <meta name="description" content="{{ meta_description }}">
+        <link rel="alternate" type="application/rss+xml" title="atom 1.0" href="{{ atom_url }}">
+        {% include "common/macro/head" %}
+        {% include "simple_corp_portal/module/styles" %}
+    </head>
+    <body>
+    {% include "simple_corp_portal/module/page-top" %}
+    <main class="container">
+        <section class="section">
+            {% include "simple_corp_portal/module/page-heading" with icon="🏷" title="标签" subtitle=printf("%d 个标签", getTagCount()) %}
+            {% set tags = getAllTag %}
+            {% if tags %}
+                <div class="tag-cloud">
+                    {% for tag in tags %}
+                        <a class="tag-item" href="{{ tag.FullPath }}">#{{ tag.Name }}<sup>{{ tag.PostCount }}</sup></a>
+                    {% endfor %}
+                </div>
+                <div class="cat-grid">
+                    {% for tag in tags %}
+                        <div class="cat-card">
+                            <h3><a href="{{ tag.FullPath }}">🏷 {{ tag.Name }}</a>
+                                <sup style="color:#9aa9bf;font-weight:400">{{ tag.PostCount }}</sup>
+                            </h3>
+                            {% set posts = listPostByTagID(tag.ID) %}
+                            {% if gt %}
+                                {% for index, post in posts %}
+                                    {% if index < 10 %}
+                                        <div class="cat-post">
+                                            <a href="{{ post.FullPath }}">{{ post.Title }}</a>
+                                            <span class="post-time">{{ unix_milli_time_format("2006-01-02", post.CreateTime) }}</span>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                                {% if gt %}
+                                    <div class="cat-more"><a href="{{ tag.FullPath }}">更多 ›</a></div>
+                                {% endif %}
+                            {% else %}
+                                <div class="cat-empty">此标签没有文章</div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="empty">暂无标签</div>
+            {% endif %}
+        </section>
+        {% include "simple_corp_portal/module/footer" %}
+    </main>
+    </body>
+    </html>

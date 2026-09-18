@@ -1,0 +1,30 @@
+{% for post in posts.Content %}
+        <div class="post-item">
+            <div class="post-title">
+                <a href="{{ post.FullPath }}">{{ post.Title }}</a>
+            </div>
+            {% if post.Summary %}
+                <div class="post-summary">{{ post.Summary }}</div>
+            {% endif %}
+            <div class="post-meta">
+                <span><i>🗓</i>{{ unix_milli_time_format("2006-01-02", post.CreateTime) }}</span>
+                <span><i>👁</i>{{ post.Visits }}</span>
+                <span><i>💬</i>{{ post.CommentCount }}</span>
+                <span><i>♥</i>{{ post.Likes }}</span>
+                {% if gt %}
+                    <span><i>📁</i>
+                        {% for i, category in post.Categories %}
+                            {% if i %}, {% endif %}<a href="{{ category.FullPath }}">{{ category.Name }}</a>
+                        {% endfor %}
+                    </span>
+                {% endif %}
+                {% if gt %}
+                    <span><i>🏷</i>
+                        {% for i, tag in post.Tags %}
+                            {% if i %}, {% endif %}<a href="{{ tag.FullPath }}">{{ tag.Name }}</a>
+                        {% endfor %}
+                    </span>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}

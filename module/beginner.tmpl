@@ -1,0 +1,28 @@
+{%- set beginner = getCategoryBySlug(settings.beginner_category_slug|default:"beginner") -%}
+    <section class="section">
+        <div class="section-head">
+            <span class="ico">📖</span>
+            <h2>新手指引</h2>
+            {% if beginner %}<a class="more" href="{{ beginner.FullPath }}">查看更多 ›</a>{% endif %}
+        </div>
+        <div class="guides">
+            {% if beginner %}
+                {% set posts = listPostByCategoryID(beginner.ID) %}
+                {% if posts %}
+                    {% for index, post in posts %}
+                        {% if index < 4 %}
+                            <article class="card">
+                                <div class="icon">📘</div>
+                                <h3><a href="{{ post.FullPath }}" title="{{ post.Title }}">{{ post.Title }}</a></h3>
+                                <p>{% if post.Summary %}{{ post.Summary }}{% else %}{{ post.Title }}{% endif %}</p>
+                            </article>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <div class="empty">暂无新手指引文章</div>
+                {% endif %}
+            {% else %}
+                <div class="empty">暂无新手指引</div>
+            {% endif %}
+        </div>
+    </section>

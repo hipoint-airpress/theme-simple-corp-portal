@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+    <html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>常用链接 - {{ blog_title }}</title>
+        <meta name="author" content="{{ user.Nickname }}">
+        <meta name="keywords" content="{{ meta_keywords }}">
+        <meta name="description" content="{{ meta_description }}">
+        <link rel="alternate" type="application/rss+xml" title="atom 1.0" href="{{ atom_url }}">
+        {% include "common/macro/head" %}
+        {% include "simple_corp_portal/module/styles" %}
+    </head>
+    <body>
+    {% include "simple_corp_portal/module/page-top" %}
+    <main class="container">
+        <section class="section">
+            {% include "simple_corp_portal/module/page-heading" with icon="🔗" title="常用链接" %}
+            <div class="links">
+                {% set links = listLinks %}
+                {% if links %}
+                    {% for link in links %}
+                        <a class="link" href="{{ link.URL }}" target="_blank">
+                            {% if link.Logo %}
+                                <img class="site-icon" src="{{ link.Logo }}" alt="{{ link.Name }}" style="border-radius:10px;object-fit:cover">
+                            {% else %}
+                                <span class="site-icon">{{ link.Name|split:""|first }}</span>
+                            {% endif %}
+                            <span><strong>{{ link.Name }}</strong><small>{{ link.Description }}</small></span>
+                            <span class="arrow">›</span>
+                        </a>
+                    {% endfor %}
+                {% else %}
+                    <div class="empty">暂无链接</div>
+                {% endif %}
+            </div>
+        </section>
+        {% include "simple_corp_portal/module/footer" %}
+    </main>
+    </body>
+    </html>

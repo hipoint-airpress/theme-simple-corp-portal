@@ -1,0 +1,20 @@
+<header class="top">
+        <a class="logo" href="{{ blog_url }}"><span>⌂</span>{{ blog_title }}</a>
+        <nav class="nav">
+            {% set menus = listMenu %}
+            {% for menu in menus %}
+                {% if menu.Name != "默认分类" %}
+                    <span class="nav-item"><a href="{{ menu.URL }}" target="{{ menu.Target }}">{{ menu.Name }}</a></span>
+                {% endif %}
+            {% endfor %}
+        </nav>
+        <form class="search" action="{{ blog_url }}/search" method="get" onsubmit="return this.keyword.value.trim()!==''">
+            <b>⌕</b>
+            <input name="keyword" type="text" placeholder="搜索文章、文档..."/>
+        </form>
+        <div class="top-right">
+            <span>♧</span>
+            <span>▦</span>
+            <div class="avatar"{% if user.Avatar %} style="background-image:url('{{ user.Avatar }}')"{% endif %}></div>
+        </div>
+    </header>

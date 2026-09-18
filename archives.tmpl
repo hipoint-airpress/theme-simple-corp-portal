@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+    <html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>归档 - {{ blog_title }}</title>
+        <meta name="author" content="{{ user.Nickname }}">
+        <meta name="keywords" content="{{ meta_keywords }}">
+        <meta name="description" content="{{ meta_description }}">
+        <link rel="alternate" type="application/rss+xml" title="atom 1.0" href="{{ atom_url }}">
+        {% include "common/macro/head" %}
+        {% include "simple_corp_portal/module/styles" %}
+    </head>
+    <body>
+    {% include "simple_corp_portal/module/page-top" %}
+    <main class="container">
+        <section class="section">
+            {% include "simple_corp_portal/module/page-heading" with icon="🗂" title="文章归档" more=print(blog_url, "/archives") %}
+            <div class="archives">
+                {% if archives %}
+                    {% for archive in archives %}
+                        <div class="year">{{ archive.Year }}</div>
+                        {% for post in archive.Posts %}
+                            <div class="archive-item">
+                                <a href="{{ post.FullPath }}" title="{{ post.Title }}">{{ post.Title }}</a>
+                                <span class="post-time">{{ unix_milli_time_format("2006-01-02", post.CreateTime) }}</span>
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                {% else %}
+                    <div class="empty">暂无归档</div>
+                {% endif %}
+            </div>
+            {% if posts.Pages > 1 %}
+                {% set pagination = archivesPagination(posts.PageNum, posts.Pages, 3) %}
+                {% include "simple_corp_portal/module/pagination" with pagination=pagination current=posts.PageNum|add:1 total=posts.Pages %}
+            {% endif %}
+        </section>
+        {% include "simple_corp_portal/module/footer" %}
+    </main>
+    </body>
+    </html>

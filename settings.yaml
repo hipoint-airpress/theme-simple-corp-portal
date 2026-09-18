@@ -1,0 +1,19 @@
+category:
+  label: 分类设置
+  items:
+    announcement_category_slug:
+      name: announcement_category_slug
+      label: 公告通知分类别名
+      type: text
+      data-type: string
+      default: announcement
+      placeholder: 请输入公告通知分类的 slug
+      description: 首页「最新公告」模块展示该分类下的文章
+    beginner_category_slug:
+      name: beginner_category_slug
+      label: 新手指引分类别名
+      type: text
+      data-type: string
+      default: beginner
+      placeholder: 请输入新手指引分类的 slug
+      description: 首页「新手指引」模块展示该分类下的文章

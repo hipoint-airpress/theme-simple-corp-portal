@@ -1,0 +1,25 @@
+{%- set announcement = getCategoryBySlug(settings.announcement_category_slug|default:"announcement") -%}
+    {%- if announcement -%}
+        {%- set posts = listPostByCategoryID(announcement.ID) -%}
+        {%- if posts -%}
+            <section class="section">
+                <div class="section-head">
+                    <span class="ico">📣</span>
+                    <h2>最新公告</h2>
+                    <a class="more" href="{{ announcement.FullPath }}">查看更多 ›</a>
+                </div>
+                <div class="notice">
+                    {% for index, post in posts %}
+                        {% if index < 3 %}
+                            <div class="notice-row">
+                                <span class="tag blue">{% if post.Tags %}{{ post.Tags.0.Name }}{% else %}公告{% endif %}</span>
+                                <strong><a href="{{ post.FullPath }}" title="{{ post.Title }}">{{ post.Title }}</a></strong>
+                                <span class="desc">{{ post.Summary }}</span>
+                                <span class="date">{{ unix_milli_time_format("2006-01-02", post.CreateTime) }}</span>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </section>
+        {%- endif -%}
+    {%- endif -%}

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+    <html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>日志 - {{ blog_title }}</title>
+        <meta name="author" content="{{ user.Nickname }}">
+        <meta name="keywords" content="{{ meta_keywords }}">
+        <meta name="description" content="{{ meta_description }}">
+        <link rel="alternate" type="application/rss+xml" title="atom 1.0" href="{{ atom_url }}">
+        {% include "common/macro/head" %}
+        {% include "simple_corp_portal/module/styles" %}
+    </head>
+    <body>
+    {% include "simple_corp_portal/module/page-top" %}
+    <main class="container">
+        <section class="section">
+            {% include "simple_corp_portal/module/page-heading" with icon="📔" title="日志" subtitle=printf("%d 条", journals.Total) %}
+            {% if journals.Content %}
+                {% for journal in journals.Content %}
+                    <div class="journal">
+                        <div class="journal-content markdown-body">{{ journal.Content|safe }}</div>
+                        <div class="journal-meta">
+                            <span>♥ {{ journal.Likes }}</span>
+                            <span>💬 {{ journal.CommentCount }}</span>
+                            <span>🗓 {{ unix_milli_time_format("2006-01-02 15:04", journal.CreateTime) }}</span>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="empty">暂无日志</div>
+            {% endif %}
+            {% if journals.Pages > 1 %}
+                {% set pagination = journalsPagination(journals.PageNum, journals.Pages, 3) %}
+                {% include "simple_corp_portal/module/pagination" with pagination=pagination current=journals.PageNum|add:1 total=journals.Pages %}
+            {% endif %}
+        </section>
+        {% include "simple_corp_portal/module/footer" %}
+    </main>
+    </body>
+    </html>

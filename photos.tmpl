@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+    <html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>图库 - {{ blog_title }}</title>
+        <meta name="author" content="{{ user.Nickname }}">
+        <meta name="keywords" content="{{ meta_keywords }}">
+        <meta name="description" content="{{ meta_description }}">
+        <link rel="alternate" type="application/rss+xml" title="atom 1.0" href="{{ atom_url }}">
+        {% include "common/macro/head" %}
+        {% include "simple_corp_portal/module/styles" %}
+    </head>
+    <body>
+    {% include "simple_corp_portal/module/page-top" %}
+    <main class="container">
+        <section class="section">
+            {% include "simple_corp_portal/module/page-heading" with icon="🖼" title="图库" subtitle=printf("%d 张", photos.Total) %}
+            {% if photos.Content %}
+                <div class="photos-grid">
+                    {% for photo in photos.Content %}
+                        <a class="photo" href="{{ photo.URL }}" target="_blank">
+                            <img src="{{ photo.Thumbnail }}" alt="{{ photo.Name }}" loading="lazy">
+                            <div class="caption">
+                                <strong>{{ photo.Name }}</strong>
+                                {% if photo.TakeTime %}<small>🗓 {{ unix_milli_time_format("2006-01-02", photo.TakeTime) }}</small>{% endif %}
+                            </div>
+                        </a>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="empty">暂无图片</div>
+            {% endif %}
+            {% if photos.Pages > 1 %}
+                {% set pagination = photosPagination(photos.PageNum, photos.Pages, 3) %}
+                {% include "simple_corp_portal/module/pagination" with pagination=pagination current=photos.PageNum|add:1 total=photos.Pages %}
+            {% endif %}
+        </section>
+        {% include "simple_corp_portal/module/footer" %}
+    </main>
+    </body>
+    </html>

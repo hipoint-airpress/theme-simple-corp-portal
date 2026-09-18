@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+    <html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>分类目录 - {{ blog_title }}</title>
+        <meta name="author" content="{{ user.Nickname }}">
+        <meta name="keywords" content="{{ meta_keywords }}">
+        <meta name="description" content="{{ meta_description }}">
+        <link rel="alternate" type="application/rss+xml" title="atom 1.0" href="{{ atom_url }}">
+        {% include "common/macro/head" %}
+        {% include "simple_corp_portal/module/styles" %}
+    </head>
+    <body>
+    {% include "simple_corp_portal/module/page-top" %}
+    <main class="container">
+        <section class="section">
+            {% include "simple_corp_portal/module/page-heading" with icon="📁" title="分类目录" subtitle=printf("%d 个分类", getCategoryCount()) %}
+            <div class="cat-grid">
+                {% set categories = listCategory %}
+                {% if categories %}
+                    {% for category in categories %}
+                        <div class="cat-card">
+                            <h3><a href="{{ category.FullPath }}">📁 {{ category.Name }}</a>
+                                <sup style="color:#9aa9bf;font-weight:400">{{ category.PostCount }}</sup>
+                            </h3>
+                            {% set posts = listPostByCategoryID(category.ID) %}
+                            {% if gt %}
+                                {% for index, post in posts %}
+                                    {% if index < 10 %}
+                                        <div class="cat-post">
+                                            <a href="{{ post.FullPath }}">{{ post.Title }}</a>
+                                            <span class="post-time">{{ unix_milli_time_format("2006-01-02", post.CreateTime) }}</span>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                                {% if gt %}
+                                    <div class="cat-more"><a href="{{ category.FullPath }}">更多 ›</a></div>
+                                {% endif %}
+                            {% else %}
+                                <div class="cat-empty">此分类没有文章</div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="empty">暂无分类</div>
+                {% endif %}
+            </div>
+        </section>
+        {% include "simple_corp_portal/module/footer" %}
+    </main>
+    </body>
+    </html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+    <html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>{{ blog_title }}</title>
+        <meta name="author" content="{{ user.Nickname }}">
+        <meta name="keywords" content="{{ meta_keywords }}">
+        <meta name="description" content="{{ meta_description }}">
+        <link rel="alternate" type="application/rss+xml" title="atom 1.0" href="{{ atom_url }}">
+        {% include "common/macro/head" %}
+        {% include "simple_corp_portal/module/styles" %}
+    </head>
+    <body>
+    {% include "simple_corp_portal/module/page-top" %}
+    <main class="container">
+        <section class="hero">
+            <div>
+                <h1>早上好！</h1>
+                <p>新的一天，愿你工作顺利，收获满满！</p>
+            </div>
+        </section>
+        {% include "simple_corp_portal/module/announcement" %}
+        {% include "simple_corp_portal/module/common-links" %}
+        {% include "simple_corp_portal/module/beginner" %}
+        {% include "simple_corp_portal/module/footer" %}
+    </main>
+    </body>
+    </html>
