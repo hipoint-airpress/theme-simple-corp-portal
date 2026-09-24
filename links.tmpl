@@ -22,7 +22,7 @@
                     {% for link in links %}
                         <a class="link" href="{{ link.URL }}" target="_blank">
                             {% if link.Logo %}
-                                <img class="site-icon" src="{{ link.Logo }}" alt="{{ link.Name }}" style="border-radius:10px;object-fit:cover">
+                                <img class="site-icon" src="{{ link.Logo }}" alt="{{ link.Name }}">
                             {% else %}
                                 <span class="site-icon">{{ link.Name|split:""|first }}</span>
                             {% endif %}

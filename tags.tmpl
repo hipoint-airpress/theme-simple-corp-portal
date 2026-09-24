@@ -27,12 +27,13 @@
                     {% for tag in tags %}
                         <div class="cat-card">
                             <h3><a href="{{ tag.FullPath }}">🏷 {{ tag.Name }}</a>
-                                <sup style="color:#9aa9bf;font-weight:400">{{ tag.PostCount }}</sup>
+                                <span class="cat-count">{{ tag.PostCount }} 篇</span>
                             </h3>
                             {% set posts = listPostByTagID(tag.ID) %}
                             {% if posts %}
-                                {% for index, post in posts %}
-                                    {% if index < 10 %}
+                                {# pongo2 的 for 双变量仅对字典有效,对 slice 元素绑定在第一个变量上,故用单变量 + forloop 计数截断 #}
+                                {% for post in posts %}
+                                    {% if forloop.Counter0 < 10 %}
                                         <div class="cat-post">
                                             <a href="{{ post.FullPath }}">{{ post.Title }}</a>
                                             <span class="post-time">{{ unix_milli_time_format("2006-01-02", post.CreateTime) }}</span>
