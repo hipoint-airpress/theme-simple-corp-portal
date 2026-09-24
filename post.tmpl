@@ -24,15 +24,15 @@
                     <span><i>♥</i>{{ post.Likes }}</span>
                     {% if post.Categories %}
                         <span><i>📁</i>
-                            {% for i, category in post.Categories %}
-                                {% if i %}, {% endif %}<a href="{{ category.FullPath }}">{{ category.Name }}</a>
+                            {% for category in post.Categories %}
+                                {% if not forloop.First %}, {% endif %}<a href="{{ category.FullPath }}">{{ category.Name }}</a>
                             {% endfor %}
                         </span>
                     {% endif %}
                     {% if post.Tags %}
                         <span><i>🏷</i>
-                            {% for i, tag in post.Tags %}
-                                {% if i %}, {% endif %}<a href="{{ tag.FullPath }}">{{ tag.Name }}</a>
+                            {% for tag in post.Tags %}
+                                {% if not forloop.First %}, {% endif %}<a href="{{ tag.FullPath }}">{{ tag.Name }}</a>
                             {% endfor %}
                         </span>
                     {% endif %}
@@ -40,7 +40,7 @@
             </div>
             <div class="post-body">
                 <div class="markdown-body">{{ post.Content|safe }}</div>
-                <div id="comment_widget" style="margin-top:30px">
+                <div id="comment_widget">
                     {% include "common/macro/comment" %}
                 </div>
                 <div class="post-nav">
