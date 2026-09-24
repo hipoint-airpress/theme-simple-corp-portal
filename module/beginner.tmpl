@@ -11,8 +11,14 @@
                 {% if posts %}
                     {% for post in posts|slice:":4" %}
                         <article class="card">
-                            <div class="icon">📘</div>
-                            <h3><a href="{{ post.FullPath }}" title="{{ post.Title }}">{{ post.Title }}</a></h3>
+                            <div class="card-head">
+                                {% if post.Thumbnail %}
+                                    <div class="icon"><img src="{{ post.Thumbnail }}" alt="{{ post.Title }}" loading="lazy"></div>
+                                {% else %}
+                                    <div class="icon">📘</div>
+                                {% endif %}
+                                <h3><a href="{{ post.FullPath }}" title="{{ post.Title }}">{{ post.Title }}</a></h3>
+                            </div>
                             <p>{% if post.Summary %}{{ post.Summary }}{% else %}{{ post.Title }}{% endif %}</p>
                         </article>
                     {% endfor %}
