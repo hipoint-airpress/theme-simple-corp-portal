@@ -7,8 +7,8 @@ category:
       type: text
       data-type: string
       default: news
-      placeholder: 请输入公告通知分类的别名
-      description: 首页「最新公告」模块展示该分类下的文章
+      placeholder: 请输入新闻公告分类的别名
+      description: 首页「新闻公告」模块展示该分类下的文章
     beginner_category_slug:
       name: beginner_category_slug
       label: 新手指引
