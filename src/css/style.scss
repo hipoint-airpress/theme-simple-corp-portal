@@ -115,6 +115,17 @@ img {
   background: transparent;
 }
 
+/* 屏蔽 @tailwindcss/forms 在 input 上绘制的默认蓝色 focus 环 */
+.search input:focus {
+  outline: 0;
+  box-shadow: none;
+}
+
+/* 焦点反馈改由整个搜索框容器呈现 */
+.search:focus-within {
+  box-shadow: 0 0 0 2px #b9d6f2;
+}
+
 .top-right {
   display: flex;
   gap: 18px;
@@ -213,7 +224,8 @@ img {
 
 .notice-row {
   display: grid;
-  grid-template-columns: 60px 240px 1fr 90px;
+  // 标题列随内容自适应完整展示，摘要列（1fr）吸收剩余空间并截断
+  grid-template-columns: 60px auto 1fr 90px;
   gap: 14px;
   align-items: center;
   min-height: 52px;
@@ -285,7 +297,29 @@ img {
 
 .card .icon {
   font-size: 30px;
+}
+
+/* 卡片头部：封面图在左占 40%、标题在右占 60% */
+.card-head {
+  display: grid;
+  grid-template-columns: 40fr 60fr;
+  gap: 12px;
+  align-items: start; // 标题与封面图顶部对齐
   margin-bottom: 13px;
+}
+
+.card-head h3 {
+  margin: 0;
+  min-width: 0; // 长标题在 60% 列内正常换行
+}
+
+/* 封面图作为卡片图标：定宽定高、裁剪不变形 */
+.card .icon img {
+  display: block;
+  width: 100%;  // 撑满 40% 左列
+  height: 88px;
+  object-fit: cover;
+  border-radius: 8px;
 }
 
 .card h3 {

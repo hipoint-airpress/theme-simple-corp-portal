@@ -9,14 +9,18 @@
             {% if beginner %}
                 {% set posts = listPostByCategoryID(beginner.ID) %}
                 {% if posts %}
-                    {% for index, post in posts %}
-                        {% if index < 4 %}
-                            <article class="card">
-                                <div class="icon">📘</div>
+                    {% for post in posts|slice:":4" %}
+                        <article class="card">
+                            <div class="card-head">
+                                {% if post.Thumbnail %}
+                                    <div class="icon"><img src="{{ post.Thumbnail }}" alt="{{ post.Title }}" loading="lazy"></div>
+                                {% else %}
+                                    <div class="icon">📘</div>
+                                {% endif %}
                                 <h3><a href="{{ post.FullPath }}" title="{{ post.Title }}">{{ post.Title }}</a></h3>
-                                <p>{% if post.Summary %}{{ post.Summary }}{% else %}{{ post.Title }}{% endif %}</p>
-                            </article>
-                        {% endif %}
+                            </div>
+                            <p>{% if post.Summary %}{{ post.Summary }}{% else %}{{ post.Title }}{% endif %}</p>
+                        </article>
                     {% endfor %}
                 {% else %}
                     <div class="empty">暂无新手指引文章</div>

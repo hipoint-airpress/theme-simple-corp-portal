@@ -11,17 +11,17 @@
                 <span><i>👁</i>{{ post.Visits }}</span>
                 <span><i>💬</i>{{ post.CommentCount }}</span>
                 <span><i>♥</i>{{ post.Likes }}</span>
-                {% if gt %}
+                {% if post.Categories %}
                     <span><i>📁</i>
-                        {% for i, category in post.Categories %}
-                            {% if i %}, {% endif %}<a href="{{ category.FullPath }}">{{ category.Name }}</a>
+                        {% for category in post.Categories %}
+                            {% if forloop.Counter > 1 %}, {% endif %}<a href="{{ category.FullPath }}">{{ category.Name }}</a>
                         {% endfor %}
                     </span>
                 {% endif %}
-                {% if gt %}
+                {% if post.Tags %}
                     <span><i>🏷</i>
-                        {% for i, tag in post.Tags %}
-                            {% if i %}, {% endif %}<a href="{{ tag.FullPath }}">{{ tag.Name }}</a>
+                        {% for tag in post.Tags %}
+                            {% if forloop.Counter > 1 %}, {% endif %}<a href="{{ tag.FullPath }}">{{ tag.Name }}</a>
                         {% endfor %}
                     </span>
                 {% endif %}
