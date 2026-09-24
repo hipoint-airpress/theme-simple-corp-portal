@@ -30,7 +30,7 @@
                                 <sup style="color:#9aa9bf;font-weight:400">{{ tag.PostCount }}</sup>
                             </h3>
                             {% set posts = listPostByTagID(tag.ID) %}
-                            {% if gt %}
+                            {% if posts %}
                                 {% for index, post in posts %}
                                     {% if index < 10 %}
                                         <div class="cat-post">
@@ -39,7 +39,7 @@
                                         </div>
                                     {% endif %}
                                 {% endfor %}
-                                {% if gt %}
+                                {% if posts|length > 10 %}
                                     <div class="cat-more"><a href="{{ tag.FullPath }}">更多 ›</a></div>
                                 {% endif %}
                             {% else %}
