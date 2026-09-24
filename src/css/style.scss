@@ -566,7 +566,7 @@ img {
   font-size: 17px;
   margin: 0 0 12px;
   display: flex;
-  align-items: baseline; /* sup 作为 flex item 时 vertical-align 失效,用基线对齐使数字与分类名同基线 */
+  align-items: center;
   gap: 8px;
 }
 
